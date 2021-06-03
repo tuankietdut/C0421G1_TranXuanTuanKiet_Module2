@@ -132,7 +132,7 @@ public class ReadNumber {
         } else if (number<1000){
             int hundred = number/100;
             int dozen = (number -(hundred*100));
-            int unit = (number -(hundred*100) - (dozen*10));
+            int unit = (number -(hundred*100) - ((dozen/10)*10));
             switch (hundred){
                 case 1:
                     letter = "one hundred";

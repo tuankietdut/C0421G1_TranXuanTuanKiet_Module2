@@ -2,7 +2,7 @@ package _02_loop_statement.bai_tap;
 
 import java.util.Scanner;
 
-public class draw_shape {
+public class DrawShapes {
     public static void main(String[] args) {
         Scanner scanner= new Scanner(System.in);
         System.out.println("Chọn hình mà bạn muốn in");

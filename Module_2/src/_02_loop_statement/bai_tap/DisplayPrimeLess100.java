@@ -1,6 +1,6 @@
 package _02_loop_statement.bai_tap;
 
-public class display_prime_less100 {
+public class DisplayPrimeLess100 {
     public static void main(String[] args) {
         System.out.println("Danh sách các số nguyên tố nhỏ hơn 100");
         String result = " ";

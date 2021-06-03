@@ -2,7 +2,7 @@ package _02_loop_statement.bai_tap;
 
 import java.util.Scanner;
 
-public class display_20_prime {
+public class DisplayTwentyPrime {
     public static void main(String[] args) {
         System.out.println("20 số nguyên tố đầu tiên: ");
         String result = "||";

@@ -2,7 +2,7 @@ package _02_loop_statement.thuc_hanh;
 
 import java.util.Scanner;
 
-public class check_is_prime {
+public class CheckIsPrime {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập số bạn muốn kiểm tra: ");

@@ -2,7 +2,7 @@ package _02_loop_statement.thuc_hanh;
 
 import java.util.Scanner;
 
-public class greatest_common {
+public class GreatestCommon {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập số đầu tiên: ");

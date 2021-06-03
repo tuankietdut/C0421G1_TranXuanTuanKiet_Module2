@@ -2,7 +2,7 @@ package _02_loop_statement.thuc_hanh;
 
 import java.util.Scanner;
 
-public class money_bank {
+public class MoneyBank {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Số tiền bạn muốn gửi: ");
