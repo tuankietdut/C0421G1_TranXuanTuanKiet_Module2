@@ -68,7 +68,7 @@ public class DrawShapes {
                 System.out.println("Nhập chiều cao cho iso triangle: ");
                 byte heightIso = scanner.nextByte();
                 for (byte i=0; i< heightIso; i++){
-                    for (int j =( -heightIso+1); j<heightIso; j++){
+                    for (int j =(-heightIso+1); j<heightIso; j++){
                         if (j>=-i && j<=i ){
                             System.out.print("*");
                         }else {
