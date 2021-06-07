@@ -6,7 +6,7 @@ public class Demo {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("------------Chương trình quản lý sinh viên------------");
-        String[] arrStudent = new String[50];
+        Student[] arrStudent = new Student[50];
         while (true){
             System.out.println("Menu chương trình: ");
             System.out.println("1. Xem danh sách sinh viên");
@@ -37,46 +37,79 @@ public class Demo {
             }
         }
     }
-    private static void displayStudent(String[] arrStudent){
-        for (String element: arrStudent){
+    private static void displayStudent(Student[] arrStudent){
+        for (Student element: arrStudent){
             if (element != null){
-                System.out.println(element);
+                System.out.println(element.toString());;
             }
         }
     }
-    private static void deleteStudent(String[] arrStudent){
-        String deleteStudent = inputStudent("Nhập tên sinh viên muốn xóa");
+    private static void deleteStudent(Student[] arrStudent){
+        int deleteStudent = Integer.parseInt(inputStudent("Nhập id muốn xóa"));
         boolean check = false;
         byte index =0;
         for (byte i=0; i<arrStudent.length; i++){
-            if (deleteStudent.equals(arrStudent[i])){
+            if (deleteStudent == arrStudent[i].getId()){
                 check = true;
                 index = i;
                 break;
             }
         }
         if (check){
-            System.out.println("Đã xóa "+ arrStudent[index]+" khỏi danh sách!!");
+            System.out.println("Đã xóa "+ arrStudent[index].getName()+" khỏi danh sách!!");
             arrStudent[index] = null;
         }else {
             System.out.println("Không có tên sinh viên này trong danh sách");
         }
     }
-    private static void editStudent(String []arrStudent){
-        String editStudent = inputStudent("Nhập tên sinh viên muốn sửa");
+    private static void editStudent(Student []arrStudent){
+        int editStudent = Integer.parseInt(inputStudent("Nhập id của sinh viên muốn sửa"));
         for (byte i=0; i<arrStudent.length; i++){
-            if (editStudent.equals(arrStudent[i])){
-                System.out.println("Bạn muốn sửa tên sinh viên thành tên gì: ");
-                arrStudent[i] = scanner.nextLine();
+            if (editStudent == arrStudent[i].getId()){
+                System.out.println("Bạn muốn giá trị nào trong đối tượng sinh viên này: ");
+                System.out.println("1. Sửa id");
+                System.out.println("2.Sửa name");
+                System.out.println("3.Sửa age");
+                System.out.println("4. Sửa address");
+                int choose = Integer.parseInt(scanner.nextLine());
+                switch (choose){
+                    case 1:
+                        System.out.println("Mời nhập id");
+                        arrStudent[i].setId(Integer.parseInt(scanner.nextLine()));
+                        System.out.println("Id đã được thay đổi");
+                        break;
+                    case 2:
+                        System.out.println("Mời nhập tên");
+                        arrStudent[i].setName(scanner.nextLine());
+                        System.out.println("Name đã được thay đổi");
+                        break;
+                    case 3:
+                        System.out.println("Mời nhập tuổi");
+                        arrStudent[i].setAge(Integer.parseInt(scanner.nextLine()));
+                        System.out.println("Age đã được thay đổi");
+                        break;
+                    case 4:
+                        System.out.println("Mời nhập địa chỉ");
+                        arrStudent[i].setAdress(scanner.nextLine());
+                        System.out.println("Address đã được thay dổi");
+                        break;
+                }
                 break;
             }
         }
     }
-    private static void addStudent(String []arrStudent){
-        String addStudent = inputStudent("Nhập tên sinh viên muốn thêm");
+    private static void addStudent(Student[] arrStudent){
+        System.out.println("Nhập id");
+        int id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Nhập tên");
+        String name = scanner.nextLine();
+        System.out.println("Nhập tuổi");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.println("Nhập địa chỉ");
+        String address = scanner.nextLine();
         for (byte i=0; i<arrStudent.length; i++){
             if (arrStudent[i] == null){
-                arrStudent[i] = addStudent;
+                arrStudent[i] = new Student(id, name, age, address);
                 break;
             }
         }

@@ -1,8 +1,8 @@
 package _04_class_object_java.thuc_hanh;
 
 public class Rectangle {
-    double width;
-    double height;
+    private double width;
+    private double height;
     public Rectangle(){
 
     }

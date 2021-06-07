@@ -9,15 +9,25 @@ public class DeleteElement {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập số cần tìm: ");
         int number = scanner.nextInt();
-        for (byte i=0; i< arrBegin.length; i++){
-            if (number == arrBegin[i]){
-                for (byte j=i; j<arrBegin.length -1; j++){
-                    arrBegin[j] = arrBegin[j+1];
-                }
-                arrBegin[arrBegin.length-1-index] =0;
-                index++;
-                if (arrBegin[i] == number){
-                    i--;
+        boolean check =false;
+        for (byte i=0; i<arrBegin.length; i++){
+            if (number != arrBegin[i]){
+                check = true;
+            }
+        }
+        if (check){
+            System.out.println("Mảng giữ nguyên, ko có phần tử nào được xóa!!!");
+        } else {
+            for (byte i=0; i< arrBegin.length; i++){
+                if (number == arrBegin[i]){
+                    for (byte j=i; j<arrBegin.length -1; j++){
+                        arrBegin[j] = arrBegin[j+1];
+                    }
+                    arrBegin[arrBegin.length-1-index] =0;
+                    index++;
+                    if (arrBegin[i] == number){
+                        i--;
+                    }
                 }
             }
         }
