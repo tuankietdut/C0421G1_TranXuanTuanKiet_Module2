@@ -1,50 +1,50 @@
 package demo_app;
 
 public class Student {
-    private int id;
-    private String name;
-    private int age;
-    private String adress;
+    private  int id;
+    private  String name;
+    private  int age;
+    private  String address;
 
     public Student() {
     }
-    public Student(int id, String name, int age, String adress) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.adress = adress;
+    public Student(int idVariable, String nameVariable, int ageVariable, String adressVariable) {
+        this.id = idVariable;
+        this.name = nameVariable;
+        this.age = ageVariable;
+        this.address = adressVariable;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getAge() {
+    int getAge() {
         return age;
     }
 
-    public String getAdress() {
-        return adress;
+    String getAddress() {
+        return address;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    void setId(int idVariable) {
+        id = idVariable;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    void setName(String nameVariable) {
+        name = nameVariable;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    void setAge(int ageVariable) {
+        age = ageVariable;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    void setAddress(String addressVariable) {
+        address = addressVariable;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", adress='" + adress + '\'' +
+                ", adress='" + address + '\'' +
                 '}';
     }
 }

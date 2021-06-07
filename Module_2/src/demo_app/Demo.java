@@ -59,7 +59,7 @@ public class Demo {
             System.out.println("Đã xóa "+ arrStudent[index].getName()+" khỏi danh sách!!");
             arrStudent[index] = null;
         }else {
-            System.out.println("Không có tên sinh viên này trong danh sách");
+            System.out.println("Không có sinh viên này trong danh sách");
         }
     }
     private static void editStudent(Student []arrStudent){
@@ -90,7 +90,7 @@ public class Demo {
                         break;
                     case 4:
                         System.out.println("Mời nhập địa chỉ");
-                        arrStudent[i].setAdress(scanner.nextLine());
+                        arrStudent[i].setAddress(scanner.nextLine());
                         System.out.println("Address đã được thay dổi");
                         break;
                 }
