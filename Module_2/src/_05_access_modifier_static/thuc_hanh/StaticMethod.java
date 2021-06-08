@@ -1,17 +1,22 @@
 package _05_access_modifier_static.thuc_hanh;
 
 public class StaticMethod {
-    private int rollno;
+    private int rollNo;
     private String name;
     private static String college = "BBDTK";
-    StaticMethod(int r, String n){
-        this.rollno = r;
+    public StaticMethod(int r, String n){
+        this.rollNo = r;
         this.name = n;
     }
     static void change(){
         college = "CODEGYM";
     }
-    void display(){
-        System.out.println(rollno + " "+ name + " "+ college);
-}
+    @Override
+    public String toString() {
+        return "StaticMethod{" +
+                "rollno=" + rollNo +
+                ", name='" + name + '\'' +
+                ", college='" + college +
+                '}';
+    }
 }

@@ -15,35 +15,35 @@ public class Student {
         this.address = adressVariable;
     }
 
-    int getId() {
+    public int getId() {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    int getAge() {
+    public int getAge() {
         return age;
     }
 
-    String getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    void setId(int idVariable) {
+    public void setId(int idVariable) {
         id = idVariable;
     }
 
-    void setName(String nameVariable) {
+    public void setName(String nameVariable) {
         name = nameVariable;
     }
 
-    void setAge(int ageVariable) {
+    public void setAge(int ageVariable) {
         age = ageVariable;
     }
 
-    void setAddress(String addressVariable) {
+    public void setAddress(String addressVariable) {
         address = addressVariable;
     }
 

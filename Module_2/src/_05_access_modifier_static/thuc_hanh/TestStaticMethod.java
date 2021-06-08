@@ -5,7 +5,7 @@ public class TestStaticMethod {
         StaticMethod.change();
         StaticMethod objOne = new StaticMethod(111,"Hoàng");
         StaticMethod objTwo = new StaticMethod(222,"Nam");
-        objOne.display();
-        objTwo.display();
+        System.out.println(objOne.toString());
+        System.out.println(objTwo.toString());
     }
 }

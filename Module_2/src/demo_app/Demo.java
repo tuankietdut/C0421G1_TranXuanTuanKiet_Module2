@@ -3,10 +3,19 @@ package demo_app;
 import java.util.Scanner;
 
 public class Demo {
+    private static Student[] arrStudent;
+    static {
+        arrStudent = new Student[50];
+        arrStudent[0] = new Student(1, "Nam", 21, "Nghê An");
+        arrStudent[1] = new Student(2, "Nữ", 22, "Thanh Hóa");
+        arrStudent[0] = new Student(3, "Trung tính", 23, "Vinh");
+        arrStudent[0] = new Student(4, "Hoàng", 24, "Quảng Nam");
+        arrStudent[0] = new Student(5, "Mai", 25, "Đà Nẵng");
+        arrStudent[0] = new Student(6, "Thảo", 21, "Quảng Ngãi");
+    }
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("------------Chương trình quản lý sinh viên------------");
-        Student[] arrStudent = new Student[50];
         while (true){
             System.out.println("Menu chương trình: ");
             System.out.println("1. Xem danh sách sinh viên");
