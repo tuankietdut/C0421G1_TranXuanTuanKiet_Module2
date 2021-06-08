@@ -8,10 +8,10 @@ public class Demo {
         arrStudent = new Student[50];
         arrStudent[0] = new Student(1, "Nam", 21, "Nghê An");
         arrStudent[1] = new Student(2, "Nữ", 22, "Thanh Hóa");
-        arrStudent[0] = new Student(3, "Trung tính", 23, "Vinh");
-        arrStudent[0] = new Student(4, "Hoàng", 24, "Quảng Nam");
-        arrStudent[0] = new Student(5, "Mai", 25, "Đà Nẵng");
-        arrStudent[0] = new Student(6, "Thảo", 21, "Quảng Ngãi");
+        arrStudent[2] = new Student(3, "Trung tính", 23, "Vinh");
+        arrStudent[3] = new Student(4, "Hoàng", 24, "Quảng Nam");
+        arrStudent[4] = new Student(5, "Mai", 25, "Đà Nẵng");
+        arrStudent[5] = new Student(6, "Thảo", 21, "Quảng Ngãi");
     }
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {

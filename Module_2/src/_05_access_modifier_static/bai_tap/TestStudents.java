@@ -7,7 +7,5 @@ public class TestStudents {
         Students objOne = new Students();
         objOne.setName("Nam");
         objOne.setClasses("SO2");
-        System.out.println(objOne.getName());
-        System.out.println(objOne.getClasses());
     }
 }
