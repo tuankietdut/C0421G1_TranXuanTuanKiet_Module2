@@ -1,59 +1,40 @@
 package demo_app;
 
-public class Student {
-    private  int id;
-    private  String name;
-    private  int age;
-    private  String address;
+public class Student extends Person {
+    private String classStudent;
 
-    public Student() {
+    public Student(String classStudent) {
+        this.classStudent = classStudent;
     }
-    public Student(int idVariable, String nameVariable, int ageVariable, String adressVariable) {
-        this.id = idVariable;
-        this.name = nameVariable;
-        this.age = ageVariable;
-        this.address = adressVariable;
+    public Student(int id, String name, int age, String address, String classStudent) {
+        super(id, name, age, address);
+        this.classStudent = classStudent;
     }
 
-    public int getId() {
-        return id;
+    public void setClassStudent(String classStudent) {
+        this.classStudent = classStudent;
     }
 
-    public String getName() {
-        return name;
+    public String getClassStudent() {
+        return classStudent;
     }
 
-    public int getAge() {
-        return age;
+    @Override
+    public void travel() {
+        System.out.println("by bike");
     }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setId(int idVariable) {
-        id = idVariable;
-    }
-
-    public void setName(String nameVariable) {
-        name = nameVariable;
-    }
-
-    public void setAge(int ageVariable) {
-        age = ageVariable;
-    }
-
-    public void setAddress(String addressVariable) {
-        address = addressVariable;
+    public void study(){
+        System.out.println("learn English");
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", adress='" + address + '\'' +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", age=" + getAge() +
+                ", address='" + getAddress() + '\'' +
+                ", class='" + classStudent + '\'' +
                 '}';
     }
-}
+    }
