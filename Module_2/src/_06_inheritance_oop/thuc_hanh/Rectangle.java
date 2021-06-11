@@ -1,6 +1,8 @@
 package _06_inheritance_oop.thuc_hanh;
 
-public class Rectangle extends Shape {
+import _07_abstract_interface.bai_tap.Resizeable;
+
+public class Rectangle extends Shape implements Resizeable {
     private double width = 1.0;
     private double length = 1.0;
     public Rectangle() {
@@ -30,11 +32,18 @@ public class Rectangle extends Shape {
     public double getPerimeter() {
         return 2 * (width + length);
     }
+    @Override
     public double getArea() {
         return width * length;
     }
     @Override
     public String toString() {
         return "A Rectangle with width= "+width+", length= "+length+", which is a subclass of "+ super.toString();
+    }
+
+    @Override
+    public void resize(double percent) {
+        this.setLength(getLength() + (percent/100));
+        this.setWidth(getWidth() + (percent/100));
     }
 }

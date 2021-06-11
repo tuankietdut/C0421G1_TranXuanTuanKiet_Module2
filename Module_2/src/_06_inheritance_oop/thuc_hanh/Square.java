@@ -1,6 +1,9 @@
 package _06_inheritance_oop.thuc_hanh;
 
-public class Square extends Rectangle {
+import _07_abstract_interface.bai_tap.Colorable;
+import _07_abstract_interface.bai_tap.Resizeable;
+
+public class Square extends Rectangle implements Colorable {
     public Square() {
     }
     public Square(double size) {
@@ -26,5 +29,9 @@ public class Square extends Rectangle {
     @Override
     public String toString() {
         return "A Square with size= "+super.getWidth()+", which a subclass of"+ super.toString();
+    }
+    @Override
+    public void howToColor() {
+        System.out.println("Color all four sides.");
     }
 }

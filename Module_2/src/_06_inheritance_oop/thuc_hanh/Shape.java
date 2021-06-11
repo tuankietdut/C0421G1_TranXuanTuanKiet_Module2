@@ -1,6 +1,6 @@
 package _06_inheritance_oop.thuc_hanh;
 
-public class Shape {
+public class Shape implements Comparable<Shape> {
     private String color = "green";
     private boolean filled = true;
     public Shape() {
@@ -20,6 +20,20 @@ public class Shape {
     }
     public void setFilled(boolean filled) {
         this.filled = filled;
+    }
+    public double getArea(){
+        return 0.0;
+    }
+
+    @Override
+    public int compareTo(Shape o) {
+        if (this.getArea() > o.getArea()){
+            return 1;
+        } else if (this.getArea() < o.getArea()){
+            return -1;
+        } else {
+            return 1;
+        }
     }
     @Override
     public String toString() {
