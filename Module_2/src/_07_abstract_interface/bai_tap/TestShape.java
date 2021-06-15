@@ -29,17 +29,17 @@ public class TestShape extends Shape {
                 double number1 = Math.round(Math.random()*100);
                 ((Circle)arrShape[i]).resize(number1);
                 System.out.println("Với tỉ lệ tăng là: "+ number1 + "%");
-                System.out.println(((Circle)arrShape[i]).getArea());
+                System.out.println(arrShape[i].getArea());
             } else if (arrShape[i] instanceof Rectangle){
                 double number1 = Math.round(Math.random()*100);
                 ((Rectangle)arrShape[i]).resize(number1);
                 System.out.println("Với tỉ lệ tăng là: "+ number1 + "%");
-                System.out.println(((Rectangle)arrShape[i]).getArea());
+                System.out.println(arrShape[i].getArea());
             } else {
                 double number1 = Math.round(Math.random()*100);
                 ((Square)arrShape[i]).resize(number1);
                 System.out.println("Với tỉ lệ tăng là: "+ number1 + "%");
-                System.out.println(((Square)arrShape[i]).getArea());
+                System.out.println(arrShape[i].getArea());
             }
         }
 

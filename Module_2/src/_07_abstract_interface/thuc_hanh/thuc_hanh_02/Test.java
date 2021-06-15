@@ -6,6 +6,7 @@ import _06_inheritance_oop.thuc_hanh.Shape;
 import java.util.Arrays;
 
 public class Test {
+
     public static void main(String[] args) {
         ComparableCircle[] circles = new ComparableCircle[6];
         circles[0] = new ComparableCircle();

@@ -11,7 +11,6 @@ public class TestColorable {
         arrShape[0] = new Circle(5.0);
         arrShape[1] = new Rectangle(4.5,5.0);
         arrShape[2] = new Square(5);
-
         for (byte i =0; i<arrShape.length; i++){
             if (arrShape[i] instanceof Colorable){
                 ((Colorable)arrShape[i]).howToColor();
