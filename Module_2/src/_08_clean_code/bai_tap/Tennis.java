@@ -36,10 +36,20 @@ public class Tennis {
 
     public static void finishMatch(int scoreOne, int scoreTwo) {
         int minusResult = scoreOne - scoreTwo;
-        if (minusResult == 1) resultScore = "Advantage player1";
-        else if (minusResult == -1) resultScore = "Advantage player2";
-        else if (minusResult >= 2) resultScore = "Win for player1";
-        else resultScore = "Win for player2";
+        switch (minusResult){
+            case 1:
+                resultScore = "Advantage player1";
+                break;
+            case -1:
+                resultScore = "Advantage player2";
+                break;
+            case 2,3,4:
+                resultScore = "Win for player1";
+                break;
+            case -2,-3,-4:
+                resultScore = "Win for player2";
+                break;
+        }
     }
 
     public static void inMatch(int scoreOne, int scoreTwo) {
