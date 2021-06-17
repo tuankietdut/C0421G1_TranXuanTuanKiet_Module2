@@ -54,8 +54,7 @@ public class ArrayList<E> {
         }else if (this.element.length == size){
             ensureCapacity(10);
         }
-
-        if (this.element[index].equals(null)){
+        if (this.element[index] == null){
             this.element[index] = element;
             size++;
         }else {
@@ -73,7 +72,7 @@ public class ArrayList<E> {
 
     public int indexOf(E element){
         for (byte i=0; i< this.element.length; i++){
-            if (this.element[i].equals(element)){
+            if (this.element[i] == element){
                 return i;
             }
         }
