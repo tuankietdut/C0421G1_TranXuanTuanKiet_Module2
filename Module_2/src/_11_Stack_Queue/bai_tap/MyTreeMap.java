@@ -23,6 +23,5 @@ public class MyTreeMap {
            }
         }
         System.out.println(myTreeMap);
-
     }
 }
