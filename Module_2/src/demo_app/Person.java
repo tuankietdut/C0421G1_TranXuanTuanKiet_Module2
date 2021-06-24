@@ -1,6 +1,6 @@
 package demo_app;
 
-public class Person {
+public  class Person {
     private int id;
     private String name;
     private int age;

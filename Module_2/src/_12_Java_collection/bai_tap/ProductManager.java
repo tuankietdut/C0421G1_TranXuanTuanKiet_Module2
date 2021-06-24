@@ -22,8 +22,7 @@ public class ProductManager  {
             if (listProduct.get(i).getId() == id) {
                     System.out.println("What property do you want to edit??");
                     System.out.println("1. Name ");
-                    System.out.println("2. Id");
-                    System.out.println("3. Price");
+                    System.out.println("2. Price");
                     int choose = Integer.parseInt(scanner.nextLine());
                     switch (choose) {
                         case 1:
@@ -32,11 +31,6 @@ public class ProductManager  {
                             listProduct.get(i).setName(newName);
                             break;
                         case 2:
-                            System.out.println("Enter new Id for product");
-                            int newId = Integer.parseInt(scanner.nextLine());
-                            listProduct.get(i).setId(newId);
-                            break;
-                        case 3:
                             System.out.println("Enter price for product");
                             int newPrice = Integer.parseInt(scanner.nextLine());
                             listProduct.get(i).setPrice(newPrice);
