@@ -1,36 +1,7 @@
 package _15_Exception.bai_tap;
 
-import java.util.Scanner;
 
 public class Triangle {
-    public static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-
-        System.out.println("Nhập cạnh a:");
-        int a = scanner.nextInt();
-        System.out.println("Nhập cạnh a:");
-        int b = scanner.nextInt();
-        System.out.println("Nhập cạnh a:");
-        int c = scanner.nextInt();
-        boolean check = false;
-        while (!check) {
-            try {
-                findException(a, b, c);
-                Triangle triangle = new Triangle(a, b, c);
-                System.out.println(triangle.toString());
-                check = true;
-            } catch (IllegalTriangleException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println("Nhập cạnh a:");
-                a = scanner.nextInt();
-                System.out.println("Nhập cạnh b:");
-                b = scanner.nextInt();
-                System.out.println("Nhập cạnh c:");
-                c = scanner.nextInt();
-            }
-        }
-    }
 
     private int edgeOne = 0;
     private int edgeTwo = 0;
@@ -45,6 +16,30 @@ public class Triangle {
     public Triangle() {
     }
 
+    public int getEdgeOne() {
+        return edgeOne;
+    }
+
+    public void setEdgeOne(int edgeOne) {
+        this.edgeOne = edgeOne;
+    }
+
+    public int getEdgeTwo() {
+        return edgeTwo;
+    }
+
+    public void setEdgeTwo(int edgeTwo) {
+        this.edgeTwo = edgeTwo;
+    }
+
+    public int getEdgeThree() {
+        return edgeThree;
+    }
+
+    public void setEdgeThree(int edgeThree) {
+        this.edgeThree = edgeThree;
+    }
+
     @Override
     public String toString() {
         return "Triangle{" +
@@ -54,10 +49,4 @@ public class Triangle {
                 '}';
     }
 
-    public static void findException(int a, int b, int c) throws IllegalTriangleException {
-        if (a < 0 || b < 0 || c < 0) throw new IllegalTriangleException("Value of triangle wrong");
-        if ((a + b < c) || (a + c < b)
-                || (c + b < a))
-            throw new IllegalTriangleException("Value sum wrong");
-    }
 }
