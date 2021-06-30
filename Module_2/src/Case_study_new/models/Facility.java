@@ -57,4 +57,15 @@ public abstract class Facility {
     public void setStyleRental(String styleRental) {
         this.styleRental = styleRental;
     }
+
+    @Override
+    public String toString() {
+        return "Facility{" +
+                "nameService='" + nameService + '\'' +
+                ", areaUse=" + areaUse +
+                ", rentalPrice=" + rentalPrice +
+                ", rentalPeopleMax=" + rentalPeopleMax +
+                ", styleRental='" + styleRental + '\'' +
+                '}';
+    }
 }

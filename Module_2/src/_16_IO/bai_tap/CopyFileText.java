@@ -20,6 +20,7 @@ public class CopyFileText {
             e.printStackTrace();
         }
     }
+
     public void write(String stringPath){
         try {
             FileWriter fileWriter = new FileWriter(stringPath);

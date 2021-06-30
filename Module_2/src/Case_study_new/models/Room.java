@@ -2,9 +2,10 @@ package Case_study_new.models;
 
 public class Room extends Facility {
     private String freeService;
+    private final static String NAME = "Room";
 
-    public Room(String nameService, double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String freeService) {
-        super(nameService, areaUse, rentalPrice, rentalPeopleMax, styleRental);
+    public Room(double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String freeService) {
+        super(NAME, areaUse, rentalPrice, rentalPeopleMax, styleRental);
         this.freeService = freeService;
     }
 
@@ -21,5 +22,12 @@ public class Room extends Facility {
     }
 
     public Room() {
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "freeService='" + freeService + '\'' +
+                '}';
     }
 }
