@@ -1,8 +1,10 @@
-package Case_study_new.services;
+package Case_study_new.services.class_service;
 
 import Case_study_new.models.Customer;
 import Case_study_new.models.Employee;
+import Case_study_new.services.CustomerService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,13 +27,16 @@ public class CustomerServiceImpl implements CustomerService {
     //String idCode, String namePerson, String dateOfBirth, String sex, String idPerson
     // , String phoneNumber, String emailAddress, String typeCustomer, String address
 
-    public static void displayCustomer() {
+
+    @Override
+    public void display() {
         for (Customer element : customers) {
             System.out.println(element.toString());
         }
     }
 
-    public static void addCustomer() {
+    @Override
+    public void add() {
         System.out.println("0. Mã số của khách hàng");
         String idCustom = scanner.nextLine();
         System.out.println("1. Name customer");
@@ -54,7 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
         customers.add(element);
     }
 
-    public static void editCustomer(String idCode) {
+    @Override
+    public void edit() {
+        System.out.println("Nhập id của customer cần edit");
+        String idCode = scanner.nextLine();
         boolean checkCustomer = false;
         for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getIdCode().equals(idCode)) {
@@ -118,6 +126,11 @@ public class CustomerServiceImpl implements CustomerService {
         } else {
             System.out.println("Không có id này trong list Employees");
         }
+    }
+
+    @Override
+    public List<Customer> getList() {
+        return customers;
     }
 
 }

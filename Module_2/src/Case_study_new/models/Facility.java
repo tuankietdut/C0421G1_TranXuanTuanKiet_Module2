@@ -1,13 +1,17 @@
 package Case_study_new.models;
 
-public abstract class Facility {
+import java.io.Serializable;
+
+public abstract class Facility implements Serializable {
+    private String idFacility;
     private String nameService;
     private double areaUse;
     private int rentalPrice;
     private int rentalPeopleMax;
     private String styleRental;
 
-    public Facility(String nameService, double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental) {
+    public Facility(String idFacility, String nameService, double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental) {
+        this.idFacility = idFacility;
         this.nameService = nameService;
         this.areaUse = areaUse;
         this.rentalPrice = rentalPrice;
@@ -16,6 +20,14 @@ public abstract class Facility {
     }
 
     public Facility() {
+    }
+
+    public String getIdFacility() {
+        return idFacility;
+    }
+
+    public void setIdFacility(String idFacility) {
+        this.idFacility = idFacility;
     }
 
     public String getNameService() {
@@ -61,7 +73,8 @@ public abstract class Facility {
     @Override
     public String toString() {
         return "Facility{" +
-                "nameService='" + nameService + '\'' +
+                "idFacility='" + idFacility + '\'' +
+                ", nameService='" + nameService + '\'' +
                 ", areaUse=" + areaUse +
                 ", rentalPrice=" + rentalPrice +
                 ", rentalPeopleMax=" + rentalPeopleMax +

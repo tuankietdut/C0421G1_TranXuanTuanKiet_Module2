@@ -1,5 +1,7 @@
 package Case_study_new.services;
 
-public interface CustomerService extends Service {
+import java.util.List;
 
+public interface CustomerService<T> extends Service {
+    List<T> getList();
 }

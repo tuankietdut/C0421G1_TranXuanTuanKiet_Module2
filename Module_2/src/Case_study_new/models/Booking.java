@@ -1,6 +1,8 @@
 package Case_study_new.models;
 
-public class Booking {
+import java.io.Serializable;
+
+public class Booking implements Serializable{
     private String idBooking;
     private String startDate;
     private String endDate;
@@ -58,5 +60,37 @@ public class Booking {
         this.facility = facility;
     }
 
+//    @Override
+//    public int compareTo(Booking o) {
+//        if (this.idBooking.compareTo(o.getIdBooking()) != 0) {
+//            if (this.startDate.compareTo(o.getStartDate()) > 0) {
+//                return 1;
+//            } else if (this.startDate.compareTo(o.getStartDate()) < 0) {
+//                return -1;
+//            } else {
+//                if (this.endDate.compareTo(o.getEndDate()) > 0) {
+//                    return 1;
+//                } else if (this.endDate.compareTo(o.getEndDate()) < 0){
+//                    return -1;
+//                }else {
+//                    return 0;
+//                }
+//            }
+//        }
+//        return 0;
+//    }
 
+
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "idBooking='" + idBooking + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", idCustomer=" + customer.getIdCode() +
+                ", nameService=" + facility.getNameService()+
+                ", idService=" + facility.getIdFacility()+
+                '}';
+    }
 }

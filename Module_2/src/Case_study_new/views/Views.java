@@ -1,5 +1,6 @@
 package Case_study_new.views;
 
+
 import Case_study_new.controllers.FuramaController;
 
 public class Views {

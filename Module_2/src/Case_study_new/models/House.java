@@ -1,12 +1,13 @@
 package Case_study_new.models;
 
-public class House extends Facility{
+public class House extends Facility {
+
     private String standardHose;
     private int floor;
     private static final String NAME = "House";
 
-    public House( double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String standardHose, int floor) {
-        super(NAME, areaUse, rentalPrice, rentalPeopleMax, styleRental);
+    public House(String idFacility, double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String standardHose, int floor) {
+        super(idFacility, NAME, areaUse, rentalPrice, rentalPeopleMax, styleRental);
         this.standardHose = standardHose;
         this.floor = floor;
     }
@@ -22,6 +23,12 @@ public class House extends Facility{
     @Override
     public String toString() {
         return "House{" +
+                "idFacility='" + super.getIdFacility() + '\'' +
+                ", nameService='" + super.getNameService() + '\'' +
+                ", areaUse=" + super.getAreaUse() +
+                ", rentalPrice=" + super.getRentalPrice() +
+                ", rentalPeopleMax=" + super.getRentalPeopleMax() +
+                ", styleRental='" + super.getStyleRental() + '\'' +
                 "standardHose='" + standardHose + '\'' +
                 ", floor=" + floor +
                 '}';

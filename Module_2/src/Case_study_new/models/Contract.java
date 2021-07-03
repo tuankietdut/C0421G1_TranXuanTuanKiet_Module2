@@ -1,7 +1,9 @@
 package Case_study_new.models;
 
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Comparable<Contract>, Serializable {
     private String idContract;
     private Booking booking;
     private int prePayment;
@@ -57,5 +59,21 @@ public class Contract {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "idContract='" + idContract + '\'' +
+                ", idBooking=" + booking.getIdBooking() +
+                ", prePayment=" + prePayment +
+                ", totalPayment=" + totalPayment +
+                ", idCustomer=" + customer.getIdCode() +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Contract o) {
+        return 0;
     }
 }

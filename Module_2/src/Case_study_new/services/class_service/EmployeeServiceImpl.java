@@ -1,6 +1,7 @@
-package Case_study_new.services;
+package Case_study_new.services.class_service;
 
 import Case_study_new.models.Employee;
+import Case_study_new.services.EmployeeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         employees.add(employee3);
     }
 
-    public static void displayEmployee() {
+    @Override
+    public void display() {
         for (Employee element : employees) {
             System.out.println(element.toString());
         }
+
     }
 
-    public static void addEmployee() {
+    @Override
+    public void add() {
         System.out.println("0. Mã số của nhân viên");
         String idEmploy = scanner.nextLine();
         System.out.println("1. Name employee");
@@ -54,10 +58,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employees.add(element);
     }
 
-    //String namePerson, String dateOfBirth, String sex, int idPerson,
-    // String phoneNumber
-    // , String emailAddress, String level, String position, int salary
-    public static void editEmployee(String idCode) {
+    @Override
+    public void edit() {
+        System.out.println("Nhập id employee muốn tìm kiếm");
+        String idCode = scanner.nextLine();
         boolean checkEmploye = false;
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getIdCode().equals(idCode)) {
@@ -120,6 +124,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         employees.get(i).setSalary(salary);
                         break;
                 }
+                break;
             }
         }
         if (checkEmploye){
@@ -127,5 +132,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }else {
             System.out.println("Không có id này trong list Employees");
         }
+
     }
+
 }
