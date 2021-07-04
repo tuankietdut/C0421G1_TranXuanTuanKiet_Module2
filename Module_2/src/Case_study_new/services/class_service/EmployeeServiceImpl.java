@@ -2,6 +2,8 @@ package Case_study_new.services.class_service;
 
 import Case_study_new.models.Employee;
 import Case_study_new.services.EmployeeService;
+import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteCustomerImp;
+import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteEmployeeImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +14,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private static List<Employee> employees = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
-    static {
-        Employee employee1 = new Employee("EM0001","Trần Xuân Đông","12/03/1995","Male","011821570",
-                "09052614577","txtkdc@gmail.com", "Đại học", "Lễ Tân", 3000000);
-        Employee employee2 = new Employee("EM0002","Trần Xuân Hạ","12/03/1996","Female","011821578",
-                "09052614477","txtkdc@gmail.com", "Sau Đại học", "Chuyên viên", 5000000);
-        Employee employee3 = new Employee("EM0003","Trần Xuân Thu","12/03/1997","Female","014521570",
-                "09052614477","txtkdc@gmail.com", "Cao đẳng", "Phục vụ", 15000000);
-        employees.add(employee1);
-        employees.add(employee2);
-        employees.add(employee3);
-    }
-
     @Override
     public void display() {
-        for (Employee element : employees) {
+        for (Employee element : new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv")) {
             System.out.println(element.toString());
         }
 
@@ -56,6 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         int salary = Integer.parseInt(scanner.nextLine());
         Employee element = new Employee(idEmploy,name,day,sex,idPerson,number,email,level,position,salary);
         employees.add(element);
+        new ReadAndWriteEmployeeImp().writeFile("src\\Case_study_new\\data\\employees.csv",employees);
     }
 
     @Override
@@ -129,6 +120,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         if (checkEmploye){
             System.out.println("Hoàn thành việc cập nhật");
+            new ReadAndWriteEmployeeImp().writeFile("src\\Case_study_new\\data\\employees.csv",employees);
         }else {
             System.out.println("Không có id này trong list Employees");
         }

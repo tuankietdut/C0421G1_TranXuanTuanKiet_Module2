@@ -3,6 +3,9 @@ package Case_study_new.services.class_service;
 import Case_study_new.models.Customer;
 import Case_study_new.models.Employee;
 import Case_study_new.services.CustomerService;
+import Case_study_new.utils.ReadAndWrite;
+import Case_study_new.utils.ReadAndWriteCustomer;
+import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteCustomerImp;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,24 +16,9 @@ public class CustomerServiceImpl implements CustomerService {
     private static List<Customer> customers = new LinkedList<>();
     private static Scanner scanner = new Scanner(System.in);
 
-    static {
-        Customer customer1 = new Customer("CU0001", "Trần Xuân Đông", "12/03/1995", "Male", "011821570",
-                "09052614577", "txtkdc@gmail.com", "Platinium", "Đà Nẵng");
-        Customer customer2 = new Customer("CU0002", "Trần Xuân Hạ", "12/03/1996", "Female", "011821578",
-                "09052614477", "txtkdc@gmail.com", "Gold", "Vinh");
-        Customer customer3 = new Customer("CU0003", "Trần Xuân Thu", "12/03/1997", "Female", "014521570",
-                "09052614477", "txtkdc@gmail.com", "Silver", "Huế");
-        customers.add(customer1);
-        customers.add(customer2);
-        customers.add(customer3);
-    }
-    //String idCode, String namePerson, String dateOfBirth, String sex, String idPerson
-    // , String phoneNumber, String emailAddress, String typeCustomer, String address
-
-
     @Override
     public void display() {
-        for (Customer element : customers) {
+        for (Customer element : new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv")) {
             System.out.println(element.toString());
         }
     }
@@ -57,6 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
         String address = scanner.nextLine();
         Customer element = new Customer(idCustom, nameCustomers, day, sex, idPerson, number, email, typeCustomer, address);
         customers.add(element);
+        new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv",customers);
     }
 
     @Override
@@ -123,14 +112,16 @@ public class CustomerServiceImpl implements CustomerService {
         }
         if (checkCustomer) {
             System.out.println("Hoàn thành việc cập nhật");
+            new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv",customers);
         } else {
             System.out.println("Không có id này trong list Employees");
         }
     }
 
+    //Sử dụng getList để lấy danh sách customer phục vụ việc booking
     @Override
     public List<Customer> getList() {
-        return customers;
+        return (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
     }
 
 }

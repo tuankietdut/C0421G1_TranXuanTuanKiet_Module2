@@ -21,8 +21,6 @@ public class EmployeeManagement {
                     new EmployeeServiceImpl().add();
                     break;
                 case 3:
-                    System.out.println("Nhập id của employee muốn chỉnh sửa");
-                    String idEmploy = scanner.nextLine();
                     new EmployeeServiceImpl().edit();
                     break;
                 case 4:

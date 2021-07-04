@@ -1,12 +1,10 @@
 package Case_study_new.services.class_service;
 
 import Case_study_new.libs.BookingComparator;
-import Case_study_new.models.Booking;
-import Case_study_new.models.Customer;
-import Case_study_new.models.Facility;
+import Case_study_new.models.*;
 import Case_study_new.services.BookingService;
-import Case_study_new.utils.ReadAndWrite;
 import Case_study_new.utils.ReadAndWriteBooking;
+import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteFacilityImp;
 
 import java.util.*;
 
@@ -49,9 +47,22 @@ public class BookingServiceImpl implements BookingService {
         Facility facility = null;
         for (Facility element : new FacilityServiceImpl().getList().keySet()) {
             if (element.getIdFacility().equals(idFac)) {
-                facility = element;
-                int newValue = new FacilityServiceImpl().getList().get(facility) +1;
-                new FacilityServiceImpl().getList().put(facility, newValue);
+                int newValue = new FacilityServiceImpl().getList().get(element) +1;
+                if (element instanceof Villa){
+                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\villa.csv");
+                    myMap.put(element, newValue);
+                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\villa.csv", myMap);
+                }
+                if (element instanceof House){
+                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\house.csv");
+                    myMap.put(element, newValue);
+                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\house.csv", myMap);
+                }
+                if (element instanceof Room){
+                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\room.csv");
+                    myMap.put(element, newValue);
+                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\room.csv", myMap);
+                }
             }
         }
         Booking booking = new Booking(idBooking, startDate, endDate, customer, facility);

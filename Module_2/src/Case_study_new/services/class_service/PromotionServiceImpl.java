@@ -1,7 +1,5 @@
 package Case_study_new.services.class_service;
 
-import Case_study_new.libs.BookingComparator;
-import Case_study_new.libs.PromotionComparator;
 import Case_study_new.models.Booking;
 import Case_study_new.models.Customer;
 import Case_study_new.services.PromotionService;
@@ -10,17 +8,16 @@ import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteBookingImp;
 import java.util.*;
 
 public class PromotionServiceImpl implements PromotionService {
-    public static void main(String[] args) {
-        new PromotionServiceImpl().display();
-    }
-
-    private static Set<CustomerList> customerListSet = new TreeSet<>();
-
     private static Scanner scanner = new Scanner(System.in);
+
+    private TreeSet<Booking> getListBooking(String path) {
+        return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile(path);
+    }
 
     @Override
     public void display() {
-        TreeSet<Booking> treeSet = (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile("src\\Case_study_new\\data\\booking.csv");
+        TreeSet<Booking> treeSet = getListBooking("src\\Case_study_new\\data\\booking.csv");
+        Set<CustomerList> customerListSet = new TreeSet<>();
         for (Booking element : treeSet) {
             System.out.println("Tên của customer " + element.getCustomer().getNamePerson());
             System.out.println("Id của customer: " + element.getCustomer().getIdCode());
@@ -34,15 +31,43 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public void listGetVoucher() {
+        TreeSet<Booking> treeSet = getListBooking("src\\Case_study_new\\data\\booking.csv");
+        Stack<Booking> myList = new Stack();
+        myList.addAll(treeSet);
+        int[] listVoucher = numberVoucher(treeSet);
+        for (int i = listVoucher[2]; i > 0; i--) {
+            System.out.println(myList.pop() + "Voucher 10%");
+        }
+        for (int i = listVoucher[1]; i > 0; i--) {
+            System.out.println(myList.pop() + "Voucher 20%");
+        }
+        for (int i = listVoucher[0]; i > 0; i--) {
+            System.out.println(myList.pop() + "Voucher 50%");
+        }
+    }
 
+    private int[] numberVoucher(Set set) {
+        int voucher50 = 0;
+        int voucher20 = 0;
+        int voucher10 = 0;
+        System.out.println("Tổng customer là:" + set.size());
+        while (voucher50 + voucher20 + voucher10 != set.size()) {
+            System.out.println("Nhập số voucher 50%");
+            voucher50 = Integer.parseInt(scanner.nextLine());
+            System.out.println("Nhập số voucher 20%");
+            voucher20 = Integer.parseInt(scanner.nextLine());
+            System.out.println("Nhập số voucher 10%");
+            voucher10 = Integer.parseInt(scanner.nextLine());
+            if (voucher50 + voucher20 + voucher10 != set.size()) {
+                System.out.println("Vui lòng nhập đúng số voucher = số customer");
+            }
+        }
+        return new int[]{voucher50, voucher20, voucher10};
     }
 
     private class CustomerList implements Comparable<CustomerList> {
         private Customer customer;
         private int year;
-
-        public CustomerList() {
-        }
 
         public CustomerList(Customer customer, int year) {
             this.customer = customer;

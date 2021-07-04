@@ -34,6 +34,8 @@ public class FuramaController {
                     new BookingManagement().bookingMenu();
                     break;
                 case 5:
+                    new PromotionManagement().promotionMenu();
+                    break;
                 case 6:
                     check = false;
             }
