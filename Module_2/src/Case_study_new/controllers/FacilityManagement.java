@@ -13,7 +13,16 @@ public class FacilityManagement {
             System.out.println("2. Add new facility");
             System.out.println("3. Display facility maintenance");
             System.out.println("4. Return menu");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = 0;
+            boolean checkLoop = false;
+            while (!checkLoop){
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                    checkLoop = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Nhập số cho chính xác");
+                }
+            }
             switch (choice) {
                 case 1:
                    new FacilityServiceImpl().display();

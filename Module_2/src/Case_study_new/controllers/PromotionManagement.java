@@ -12,8 +12,17 @@ public class PromotionManagement {
             System.out.println("1. Display list customers use service");
             System.out.println("2. Display list customers get voucher");
             System.out.println("3. Return menu");
-            int choice = Integer.parseInt(scanner.nextLine());
-            switch (choice) {
+            boolean checkLoop = false;
+            int choiceSecond = 0;
+            while (!checkLoop){
+                try {
+                    choiceSecond = Integer.parseInt(scanner.nextLine());
+                    checkLoop = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Nhập số cho chính xác");
+                }
+            }
+            switch (choiceSecond) {
                 case 1:
                     new PromotionServiceImpl().display();
                     break;

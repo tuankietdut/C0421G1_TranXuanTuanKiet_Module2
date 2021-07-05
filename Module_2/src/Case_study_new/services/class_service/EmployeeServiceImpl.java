@@ -19,11 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         for (Employee element : new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv")) {
             System.out.println(element.toString());
         }
-
     }
 
     @Override
     public void add() {
+        employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
         System.out.println("0. Mã số của nhân viên");
         String idEmploy = scanner.nextLine();
         System.out.println("1. Name employee");
@@ -43,7 +43,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         System.out.println("8. Vị trí");
         String position = scanner.nextLine();
         System.out.println("9. Salary");
-        int salary = Integer.parseInt(scanner.nextLine());
+        boolean checkSalary = true;
+        int salary = 0;
+        while (checkSalary){
+            try {
+                salary = Integer.parseInt(scanner.nextLine());
+                checkSalary = false;
+            }catch (RuntimeException ex){
+                System.out.println("Nhập số vào: ");
+            }
+        }
         Employee element = new Employee(idEmploy,name,day,sex,idPerson,number,email,level,position,salary);
         employees.add(element);
         new ReadAndWriteEmployeeImp().writeFile("src\\Case_study_new\\data\\employees.csv",employees);
@@ -51,6 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void edit() {
+        employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
         System.out.println("Nhập id employee muốn tìm kiếm");
         String idCode = scanner.nextLine();
         boolean checkEmploye = false;
@@ -111,7 +121,16 @@ public class EmployeeServiceImpl implements EmployeeService {
                         break;
                     case 9:
                         System.out.println("Nhập lương");
-                        int salary = Integer.parseInt(scanner.nextLine());
+                        boolean checkSalary = true;
+                        int salary = 0;
+                        while (checkSalary) {
+                            try {
+                                salary = Integer.parseInt(scanner.nextLine());
+                                checkSalary = false;
+                            } catch (RuntimeException ex) {
+                                System.out.println("Nhập số vào: ");
+                            }
+                        }
                         employees.get(i).setSalary(salary);
                         break;
                 }

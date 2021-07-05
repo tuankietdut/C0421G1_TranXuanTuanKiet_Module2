@@ -5,24 +5,33 @@ import Case_study_new.models.*;
 import Case_study_new.services.BookingService;
 import Case_study_new.utils.ReadAndWriteBooking;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteFacilityImp;
-
+import java.io.File;
 import java.util.*;
 
 public class BookingServiceImpl implements BookingService {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    private static Set<Booking> myTree = new TreeSet<>(new BookingComparator()); //
+    private static Set<Booking> myTree = new TreeSet<>(new BookingComparator());
 
     @Override
     public void displayListBooking(ReadAndWriteBooking readAndWrite) {
-        for (Booking element: readAndWrite.readFile("src\\Case_study_new\\data\\booking.csv")){
-            System.out.println(element.toString());
+        File file = new File("src\\Case_study_new\\data\\booking.csv");
+        if (file.exists()){
+            for (Booking element : readAndWrite.readFile("src\\Case_study_new\\data\\booking.csv")) {
+                System.out.println(element.toString());
+            }
+        }else {
+            System.out.println("Chưa có booking nào");
         }
     }
 
     @Override
     public void addBooking(ReadAndWriteBooking readAndWrite) {
+        File file = new File("src\\Case_study_new\\data\\booking.csv");
+        if (file.exists()){
+            myTree = (Set<Booking>) readAndWrite.readFile("src\\Case_study_new\\data\\booking.csv");
+        }
         System.out.println("Danh sách customer");
         new CustomerServiceImpl().display();
         System.out.println("Danh sách facility ");
@@ -33,41 +42,60 @@ public class BookingServiceImpl implements BookingService {
         String startDate = scanner.nextLine();
         System.out.println("Ngày kết thúc");
         String endDate = scanner.nextLine();
+        Customer customer;
+        Facility facility;
+        do {
+            customer = findCustomer();
+            facility = findFacility();
+        }while ((customer != null) && (facility!= null));
+        Booking booking = new Booking(idBooking, startDate, endDate, customer, facility);
+        myTree.add(booking);
+        readAndWrite.writeFile("src\\Case_study_new\\data\\booking.csv", myTree);
+    }
+
+    private static Customer findCustomer(){
         System.out.println("Nhập id của customer");
         String idCus = scanner.nextLine();
-        Customer customer = null;
         for (Customer element : new CustomerServiceImpl().getList()) {
             if (element.getIdCode().equals(idCus)) {
-                customer = element;
-                break;
+                return element;
             }
         }
+        return null;
+    }
+
+    private static Facility findFacility(){
         System.out.println("Nhập id của mã dịch vụ");
         String idFac = scanner.nextLine();
         Facility facility = null;
-        for (Facility element : new FacilityServiceImpl().getList().keySet()) {
+        Map<Facility, Integer> facilityIntegerMap = new FacilityServiceImpl().getList();
+        for (Facility element : facilityIntegerMap.keySet()) {
             if (element.getIdFacility().equals(idFac)) {
-                int newValue = new FacilityServiceImpl().getList().get(element) +1;
-                if (element instanceof Villa){
-                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\villa.csv");
-                    myMap.put(element, newValue);
-                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\villa.csv", myMap);
-                }
-                if (element instanceof House){
-                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\house.csv");
-                    myMap.put(element, newValue);
-                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\house.csv", myMap);
-                }
-                if (element instanceof Room){
-                    Map<Facility, Integer> myMap = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\room.csv");
-                    myMap.put(element, newValue);
-                    new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\room.csv", myMap);
-                }
+                facility = element;
+                int newValue = facilityIntegerMap.get(element) +1;
+                facilityIntegerMap.put(element, newValue);
+                break;
             }
         }
-        Booking booking = new Booking(idBooking, startDate, endDate, customer, facility);
-        myTree.add(booking);
-        readAndWrite.writeFile("src\\Case_study_new\\data\\booking.csv",myTree);
-//        new ReadAndWriteCollection<Booking>().writeCollection("src\\Case_study_new\\data\\booking.csv",myTree);
+        Map<Facility, Integer> mapVilla = new LinkedHashMap<>();
+        Map<Facility, Integer> mapHouse = new LinkedHashMap<>();
+        Map<Facility, Integer> mapRoom = new LinkedHashMap<>();
+        for (Map.Entry<Facility, Integer> element : facilityIntegerMap.entrySet()) {
+            if (element.getKey() instanceof Villa) {
+                mapVilla.put(element.getKey(), element.getValue());
+                continue;
+            }
+            if (element.getKey()  instanceof House) {
+                mapHouse.put(element.getKey(), element.getValue());
+                continue;
+            }
+            if (element.getKey()  instanceof Room) {
+                mapRoom.put(element.getKey(), element.getValue());
+            }
+        }
+        new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\villa.csv", mapVilla);
+        new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\house.csv", mapHouse);
+        new ReadAndWriteFacilityImp().writeFile("src\\Case_study_new\\data\\room.csv", mapRoom);
+        return facility;
     }
 }

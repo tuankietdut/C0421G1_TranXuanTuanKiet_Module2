@@ -15,10 +15,14 @@ public class FuramaController {
             System.out.println("5. Promotion Management");
             System.out.println("6. Exit");
             int choice = 0;
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException ex) {
-                ex.printStackTrace();
+            boolean checkLoop = false;
+            while (!checkLoop){
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                    checkLoop = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Nhập số cho chính xác");
+                }
             }
             switch (choice) {
                 case 1:

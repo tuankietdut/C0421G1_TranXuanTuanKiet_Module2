@@ -25,6 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void add() {
+        customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
         System.out.println("0. Mã số của khách hàng");
         String idCustom = scanner.nextLine();
         System.out.println("1. Name customer");
@@ -50,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void edit() {
+        customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
         System.out.println("Nhập id của customer cần edit");
         String idCode = scanner.nextLine();
         boolean checkCustomer = false;
@@ -123,5 +125,4 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getList() {
         return (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
     }
-
 }

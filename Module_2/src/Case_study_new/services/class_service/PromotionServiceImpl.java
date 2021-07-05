@@ -8,15 +8,15 @@ import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteBookingImp;
 import java.util.*;
 
 public class PromotionServiceImpl implements PromotionService {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    private TreeSet<Booking> getListBooking(String path) {
-        return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile(path);
+    private TreeSet<Booking> getListBooking() {
+        return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile("Case_study_new\\data\\booking.csv");
     }
 
     @Override
     public void display() {
-        TreeSet<Booking> treeSet = getListBooking("src\\Case_study_new\\data\\booking.csv");
+        TreeSet<Booking> treeSet = getListBooking();
         Set<CustomerList> customerListSet = new TreeSet<>();
         for (Booking element : treeSet) {
             System.out.println("Tên của customer " + element.getCustomer().getNamePerson());
@@ -31,7 +31,7 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public void listGetVoucher() {
-        TreeSet<Booking> treeSet = getListBooking("src\\Case_study_new\\data\\booking.csv");
+        TreeSet<Booking> treeSet = getListBooking();
         Stack<Booking> myList = new Stack();
         myList.addAll(treeSet);
         int[] listVoucher = numberVoucher(treeSet);
@@ -46,7 +46,7 @@ public class PromotionServiceImpl implements PromotionService {
         }
     }
 
-    private int[] numberVoucher(Set set) {
+    private int[] numberVoucher(Set<Booking> set) {
         int voucher50 = 0;
         int voucher20 = 0;
         int voucher10 = 0;
@@ -65,7 +65,7 @@ public class PromotionServiceImpl implements PromotionService {
         return new int[]{voucher50, voucher20, voucher10};
     }
 
-    private class CustomerList implements Comparable<CustomerList> {
+    private static class CustomerList implements Comparable<CustomerList> {
         private Customer customer;
         private int year;
 

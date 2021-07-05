@@ -18,7 +18,16 @@ public class BookingManagement {
             System.out.println("4. Display list contracts");
             System.out.println("5. Edit contracts");
             System.out.println("6. Return main menu");
-            int choiceSecond = Integer.parseInt(scanner.nextLine());
+            boolean checkLoop = false;
+            int choiceSecond = 0;
+            while (!checkLoop){
+                try {
+                    choiceSecond = Integer.parseInt(scanner.nextLine());
+                    checkLoop = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Nhập số cho chính xác");
+                }
+            }
             switch (choiceSecond) {
                 case 1:
                     new BookingServiceImpl().addBooking(new ReadAndWriteBookingImp());

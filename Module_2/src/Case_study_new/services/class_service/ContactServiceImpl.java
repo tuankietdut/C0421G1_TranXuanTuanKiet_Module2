@@ -5,7 +5,6 @@ import Case_study_new.models.*;
 import Case_study_new.services.ContactService;
 import Case_study_new.utils.ReadAndWriteContract;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteBookingImp;
-
 import java.util.*;
 
 public class ContactServiceImpl implements ContactService {
@@ -16,11 +15,10 @@ public class ContactServiceImpl implements ContactService {
 
     private static final String PATH_2 = "src\\Case_study_new\\data\\contract.csv";
 
-    private static Queue<Booking> bookingQueue = new PriorityQueue<Booking>(15, new BookingComparator());//
-
     @Override
     public void creatNewContract(ReadAndWriteContract readAndWrite) {
-        Set<Booking> bookingSet = (Set<Booking>) new ReadAndWriteBookingImp().readFile("src\\\\Case_study_new\\\\data\\\\booking.csv");
+        Set<Booking> bookingSet = (Set<Booking>) new ReadAndWriteBookingImp().readFile("src\\Case_study_new\\data\\booking.csv");
+        Queue<Booking> bookingQueue = new PriorityQueue<>(15, new BookingComparator());
         bookingQueue.addAll(bookingSet);
         Booking element;
         do {
@@ -28,22 +26,33 @@ public class ContactServiceImpl implements ContactService {
             if (element != null) {
                 System.out.println(element.toString());
                 if (!(element.getFacility() instanceof Room)) {
+//                    bookingSet.remove(element);
                     System.out.println("Tạo hợp đồng cho idCustomer: " + element.getCustomer().getIdCode());
                     System.out.println("Mã bookinig là:" + element.getIdBooking());
                     System.out.println("Nhập id cho contract này");
                     String idContract = scanner.nextLine();
                     Customer idCus = element.getCustomer();
-                    System.out.println("Số tiền khách hàng trả trước");
-                    int prePayment = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Tổng tiền khách hàng phải trả");
-                    int totalPayment = Integer.parseInt(scanner.nextLine());
+                    boolean rightType = true;
+                    int prePayment = 0;
+                    int totalPayment =0;
+                    while (rightType){
+                        try {
+                            System.out.println("Số tiền khách hàng trả trước");
+                            prePayment = Integer.parseInt(scanner.nextLine());
+                            System.out.println("Tổng tiền khách hàng phải trả");
+                            totalPayment = Integer.parseInt(scanner.nextLine());
+                            rightType = false;
+                        }catch (RuntimeException ex){
+                            System.out.println("Nhập đúng dữ liệu số");
+                        }
+                    }
                     arrayList.add(new Contract(idContract, element, prePayment, totalPayment, idCus));
                 }
             }
         } while (!bookingQueue.isEmpty());
+//        new ReadAndWriteBookingImp().writeFile("src\\Case_study_new\\data\\booking.csv",bookingSet);
         readAndWrite.writeFile(PATH_2, arrayList);
     }
-
 
     @Override
     public void displayListContract(ReadAndWriteContract readAndWrite) {
@@ -79,13 +88,31 @@ public class ContactServiceImpl implements ContactService {
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        System.out.println("Nhập số tiền trả trước");
-                        int prePayment = Integer.parseInt(scanner.nextLine());
+                        boolean checkType = true;
+                        int prePayment = 0;
+                        while (checkType){
+                            try {
+                                System.out.println("Nhập số tiền trả trước");
+                                prePayment = Integer.parseInt(scanner.nextLine());
+                                checkType = false;
+                            }catch (RuntimeException ex){
+                                System.out.println("Nhập đúng dữ liệu số");
+                            }
+                        }
                         editContract.setPrePayment(prePayment);
                         break;
                     case 2:
-                        System.out.println("Nhập tổng tiền phải trả");
-                        int totalPayment = Integer.parseInt(scanner.nextLine());
+                        boolean checkTypeSecond = true;
+                        int totalPayment = 0;
+                        while (checkTypeSecond){
+                            try {
+                                System.out.println("Nhập tổng tiền phải trả");
+                                totalPayment = Integer.parseInt(scanner.nextLine());
+                                checkTypeSecond = false;
+                            }catch (RuntimeException ex){
+                                System.out.println("Nhập đúng dữ liệu số");
+                            }
+                        }
                         editContract.setTotalPayment(totalPayment);
                         break;
                     case 3:

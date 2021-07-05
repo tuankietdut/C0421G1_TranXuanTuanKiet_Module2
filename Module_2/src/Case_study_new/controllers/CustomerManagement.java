@@ -5,15 +5,24 @@ import Case_study_new.services.class_service.CustomerServiceImpl;
 import java.util.Scanner;
 
 public class CustomerManagement {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     public void customerMenu() {
         while (true) {
             System.out.println("1. Display list customers");
             System.out.println("2. Add new customer");
             System.out.println("3. Edit customer");
             System.out.println("4. Return menu");
-            int choiceSecond = Integer.parseInt(scanner.nextLine());
-            switch (choiceSecond) {
+            boolean checkLoop = false;
+            int choice = 0;
+            while (!checkLoop){
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                    checkLoop = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Nhập số cho chính xác");
+                }
+            }
+            switch (choice) {
                 case 1:
                     new CustomerServiceImpl().display();
                     break;

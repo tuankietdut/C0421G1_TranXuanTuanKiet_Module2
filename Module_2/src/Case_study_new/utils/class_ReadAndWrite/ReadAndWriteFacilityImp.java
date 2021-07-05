@@ -52,7 +52,7 @@ public class ReadAndWriteFacilityImp implements ReadAndWriteFacility {
             collection = (Map<Facility, Integer>) objectInputStream.readObject();
         }catch (IOException | ClassNotFoundException ex){
             ex.printStackTrace();
-        }finally {
+        } finally {
             try {
                 if (objectInputStream != null) {
                     objectInputStream.close();
