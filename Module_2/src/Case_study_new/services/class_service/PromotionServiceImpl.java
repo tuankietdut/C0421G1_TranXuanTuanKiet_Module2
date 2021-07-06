@@ -10,7 +10,7 @@ import java.util.*;
 public class PromotionServiceImpl implements PromotionService {
     private static final Scanner scanner = new Scanner(System.in);
 
-    private TreeSet<Booking> getListBooking() {
+    private static TreeSet<Booking> getListBooking() {
         return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile("Case_study_new\\data\\booking.csv");
     }
 

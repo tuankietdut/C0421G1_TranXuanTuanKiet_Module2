@@ -1,10 +1,13 @@
 package Case_study_new.services.class_service;
 
+import Case_study_new.libs.CatchAgeException;
+import Case_study_new.models.Customer;
 import Case_study_new.models.Employee;
 import Case_study_new.services.EmployeeService;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteCustomerImp;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteEmployeeImp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +15,7 @@ import java.util.Scanner;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static List<Employee> employees = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     @Override
     public void display() {
@@ -22,14 +25,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void add() {
-        employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+    public void add(CatchAgeException catchAgeException) {
+        if (new File("src\\Case_study_new\\data\\employees.csv").exists()){
+            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+        }
         System.out.println("0. Mã số của nhân viên");
         String idEmploy = scanner.nextLine();
         System.out.println("1. Name employee");
         String name = scanner.nextLine();
         System.out.println("2. Ngày sinh");
         String day = scanner.nextLine();
+        catchAgeException.checkDateOfBirth(day);
         System.out.println("3. Giới tính");
         String sex = scanner.nextLine();
         System.out.println("4. Số Chứng minh nhân dân");
@@ -59,15 +65,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void edit() {
-        employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+    public void edit(CatchAgeException catchAgeException) {
+        if (new File("src\\Case_study_new\\data\\employees.csv").exists()){
+            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+        }
         System.out.println("Nhập id employee muốn tìm kiếm");
         String idCode = scanner.nextLine();
         boolean checkEmploye = false;
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getIdCode().equals(idCode)) {
+        for (Employee employee : employees) {
+            if (employee.getIdCode().equals(idCode)) {
                 checkEmploye = true;
-                System.out.println("Bạn muốn sửa thông tin nào cho" + employees.get(i).getNamePerson());
+                System.out.println("Bạn muốn sửa thông tin nào cho" + employee.getNamePerson());
                 System.out.println("1. Name employee");
                 System.out.println("2. Ngày sinh");
                 System.out.println("3. Giới tính");
@@ -77,47 +85,57 @@ public class EmployeeServiceImpl implements EmployeeService {
                 System.out.println("7. Trình độ");
                 System.out.println("8. Vị trí");
                 System.out.println("9. Salary");
-                int choice = Integer.parseInt(scanner.nextLine());
+                int choice = 0;
+                boolean check = false;
+                while (!check){
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                        check = true;
+                    }catch (NumberFormatException ex){
+                        System.err.println("Nhập đúng định dạng số");
+                    }
+                }
                 switch (choice) {
                     case 1:
                         System.out.println("Nhập tên muốn sửa");
                         String name = scanner.nextLine();
-                        employees.get(i).setNamePerson(name);
+                        employee.setNamePerson(name);
                         break;
                     case 2:
                         System.out.println("Nhập dateOfBirth");
                         String day = scanner.nextLine();
-                        employees.get(i).setDateOfBirth(day);
+                        catchAgeException.checkDateOfBirth(day);
+                        employee.setDateOfBirth(day);
                         break;
                     case 3:
                         System.out.println("Nhập giới tính");
                         String sex = scanner.nextLine();
-                        employees.get(i).setDateOfBirth(sex);
+                        employee.setDateOfBirth(sex);
                         break;
                     case 4:
                         System.out.println("Nhập CMND");
                         String idPerson = scanner.nextLine();
-                        employees.get(i).setIdPerson(idPerson);
+                        employee.setIdPerson(idPerson);
                         break;
                     case 5:
                         System.out.println("Nhập số điện thoại");
                         String number = scanner.nextLine();
-                        employees.get(i).setPhoneNumber(number);
+                        employee.setPhoneNumber(number);
                         break;
                     case 6:
                         System.out.println("Nhập emailAddress");
                         String email = scanner.nextLine();
-                        employees.get(i).setEmailAddress(email);
+                        employee.setEmailAddress(email);
                         break;
                     case 7:
                         System.out.println("Nhập trình độ");
                         String level = scanner.nextLine();
-                        employees.get(i).setLevel(level);
+                        employee.setLevel(level);
                         break;
                     case 8:
                         System.out.println("Nhập position");
                         String position = scanner.nextLine();
-                        employees.get(i).setPosition(position);
+                        employee.setPosition(position);
                         break;
                     case 9:
                         System.out.println("Nhập lương");
@@ -131,7 +149,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                                 System.out.println("Nhập số vào: ");
                             }
                         }
-                        employees.get(i).setSalary(salary);
+                        employee.setSalary(salary);
                         break;
                 }
                 break;

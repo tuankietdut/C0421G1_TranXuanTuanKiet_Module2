@@ -1,5 +1,6 @@
 package Case_study_new.controllers;
 
+import Case_study_new.libs.CatchAgeExceptionImp;
 import Case_study_new.services.class_service.CustomerServiceImpl;
 
 import java.util.Scanner;
@@ -27,10 +28,10 @@ public class CustomerManagement {
                     new CustomerServiceImpl().display();
                     break;
                 case 2:
-                    new CustomerServiceImpl().add();
+                    new CustomerServiceImpl().add(new CatchAgeExceptionImp());
                     break;
                 case 3:
-                    new CustomerServiceImpl().edit();
+                    new CustomerServiceImpl().edit(new CatchAgeExceptionImp());
                     break;
                 case 4:
                     return;

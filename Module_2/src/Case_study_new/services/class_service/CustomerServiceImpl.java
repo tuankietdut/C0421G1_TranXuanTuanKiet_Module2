@@ -1,5 +1,6 @@
 package Case_study_new.services.class_service;
 
+import Case_study_new.libs.CatchAgeException;
 import Case_study_new.models.Customer;
 import Case_study_new.models.Employee;
 import Case_study_new.services.CustomerService;
@@ -7,6 +8,7 @@ import Case_study_new.utils.ReadAndWrite;
 import Case_study_new.utils.ReadAndWriteCustomer;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteCustomerImp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,14 +26,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void add() {
-        customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
+    public void add(CatchAgeException catchAgeException) {
+        if (new File("src\\Case_study_new\\data\\customer.csv").exists()) {
+            customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
+        }
         System.out.println("0. Mã số của khách hàng");
         String idCustom = scanner.nextLine();
         System.out.println("1. Name customer");
         String nameCustomers = scanner.nextLine();
         System.out.println("2. Ngày sinh");
         String day = scanner.nextLine();
+        catchAgeException.checkDateOfBirth(day);
         System.out.println("3. Giới tính");
         String sex = scanner.nextLine();
         System.out.println("4. Số Chứng minh nhân dân");
@@ -46,12 +51,14 @@ public class CustomerServiceImpl implements CustomerService {
         String address = scanner.nextLine();
         Customer element = new Customer(idCustom, nameCustomers, day, sex, idPerson, number, email, typeCustomer, address);
         customers.add(element);
-        new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv",customers);
+        new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv", customers);
     }
 
     @Override
-    public void edit() {
-        customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
+    public void edit(CatchAgeException catchAgeException) {
+        if (new File("src\\Case_study_new\\data\\customer.csv").exists()) {
+            customers = (List<Customer>) new ReadAndWriteCustomerImp().readFile("src\\Case_study_new\\data\\customer.csv");
+        }
         System.out.println("Nhập id của customer cần edit");
         String idCode = scanner.nextLine();
         boolean checkCustomer = false;
@@ -67,7 +74,16 @@ public class CustomerServiceImpl implements CustomerService {
                 System.out.println("6. Địa chỉ email");
                 System.out.println("7. Loại khách hàng");
                 System.out.println("8. Địa chỉ của khách hàng");
-                int choice = Integer.parseInt(scanner.nextLine());
+                int choice = 0;
+                boolean check = false;
+                while (!check) {
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                        check = true;
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Nhập đúng định dạng số");
+                    }
+                }
                 switch (choice) {
                     case 1:
                         System.out.println("Nhập tên muốn sửa");
@@ -77,6 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
                     case 2:
                         System.out.println("Nhập dateOfBirth");
                         String day = scanner.nextLine();
+                        catchAgeException.checkDateOfBirth(day);
                         customers.get(i).setDateOfBirth(day);
                         break;
                     case 3:
@@ -114,7 +131,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         if (checkCustomer) {
             System.out.println("Hoàn thành việc cập nhật");
-            new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv",customers);
+            new ReadAndWriteCustomerImp().writeFile("src\\Case_study_new\\data\\customer.csv", customers);
         } else {
             System.out.println("Không có id này trong list Employees");
         }

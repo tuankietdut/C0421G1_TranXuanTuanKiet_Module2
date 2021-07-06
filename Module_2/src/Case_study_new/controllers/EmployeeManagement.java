@@ -1,5 +1,6 @@
 package Case_study_new.controllers;
 
+import Case_study_new.libs.CatchAgeExceptionImp;
 import Case_study_new.services.class_service.EmployeeServiceImpl;
 
 import java.util.Scanner;
@@ -27,10 +28,10 @@ public class EmployeeManagement {
                     new EmployeeServiceImpl().display();
                     break;
                 case 2:
-                    new EmployeeServiceImpl().add();
+                    new EmployeeServiceImpl().add(new CatchAgeExceptionImp());
                     break;
                 case 3:
-                    new EmployeeServiceImpl().edit();
+                    new EmployeeServiceImpl().edit(new CatchAgeExceptionImp());
                     break;
                 case 4:
                     return;

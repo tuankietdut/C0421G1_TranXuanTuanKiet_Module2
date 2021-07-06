@@ -1,6 +1,7 @@
 package Case_study_new.controllers;
 
 import Case_study_new.services.class_service.FacilityServiceImpl;
+import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteFacilityImp;
 
 import java.util.Scanner;
 
@@ -28,10 +29,38 @@ public class FacilityManagement {
                    new FacilityServiceImpl().display();
                     break;
                 case 2:
-                    new FacilityServiceImpl().add();
+                    addMenu();
                     break;
                 case 3:
                     new FacilityServiceImpl().displayFacMaintain();
+                    break;
+                case 4:
+                    return;
+            }
+        }
+    }
+
+    private void addMenu(){
+        while (true) {
+            System.out.println("1. Add New Villa");
+            System.out.println("2. Add New House");
+            System.out.println("3. Add New Room");
+            System.out.println("4. Back to menu");
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            switch (choice) {
+                case 1:
+                    new FacilityServiceImpl().addVilla(new ReadAndWriteFacilityImp());
+                    break;
+                case 2:
+                    new FacilityServiceImpl().addHouse(new ReadAndWriteFacilityImp());
+                    break;
+                case 3:
+                    new FacilityServiceImpl().addRoom(new ReadAndWriteFacilityImp());
                     break;
                 case 4:
                     return;

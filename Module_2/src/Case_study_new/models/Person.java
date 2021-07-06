@@ -1,5 +1,7 @@
 package Case_study_new.models;
 
+import Case_study_new.libs.AgeException;
+
 import java.io.Serializable;
 
 public abstract class Person implements Serializable {
@@ -11,7 +13,16 @@ public abstract class Person implements Serializable {
     protected String phoneNumber;
     protected String emailAddress;
 
-    public Person(String idCode, String namePerson, String dateOfBirth, String sex, String idPerson, String phoneNumber, String emailAddress) {
+    public Person (String idCode, String namePerson, String dateOfBirth, String sex, String idPerson, String phoneNumber, String emailAddress) {
+//      try {
+//          String[] rightDateOfBirth = dateOfBirth.split("/");
+//          if ((Integer.parseInt(rightDateOfBirth[2])>2003 ) || (Integer.parseInt(rightDateOfBirth[2])<1921)) {
+//              throw new AgeException("Nhập tuổi trong độ tuổi 18-100");
+//
+//          }
+//      }catch (AgeException ag){
+//          System.err.println(ag.getMessage());
+//      }
         this.idCode = idCode;
         this.namePerson = namePerson;
         this.dateOfBirth = dateOfBirth;
