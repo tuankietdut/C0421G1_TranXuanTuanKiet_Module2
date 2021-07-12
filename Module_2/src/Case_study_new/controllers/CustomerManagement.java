@@ -1,6 +1,8 @@
 package Case_study_new.controllers;
 
 import Case_study_new.libs.CatchAgeExceptionImp;
+import Case_study_new.libs.CatchRegexString;
+import Case_study_new.libs.CatchRegexStringImp;
 import Case_study_new.services.class_service.CustomerServiceImpl;
 
 import java.util.Scanner;
@@ -28,10 +30,10 @@ public class CustomerManagement {
                     new CustomerServiceImpl().display();
                     break;
                 case 2:
-                    new CustomerServiceImpl().add(new CatchAgeExceptionImp());
+                    new CustomerServiceImpl().add(new CatchAgeExceptionImp(), new CatchRegexStringImp());
                     break;
                 case 3:
-                    new CustomerServiceImpl().edit(new CatchAgeExceptionImp());
+                    new CustomerServiceImpl().edit(new CatchAgeExceptionImp(),  new CatchRegexStringImp());
                     break;
                 case 4:
                     return;

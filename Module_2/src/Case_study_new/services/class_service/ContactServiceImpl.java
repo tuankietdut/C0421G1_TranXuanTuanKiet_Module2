@@ -5,6 +5,8 @@ import Case_study_new.models.*;
 import Case_study_new.services.ContactService;
 import Case_study_new.utils.ReadAndWriteContract;
 import Case_study_new.utils.class_ReadAndWrite.ReadAndWriteBookingImp;
+
+import java.io.File;
 import java.util.*;
 
 public class ContactServiceImpl implements ContactService {
@@ -12,12 +14,14 @@ public class ContactServiceImpl implements ContactService {
     private static java.util.List<Contract> arrayList = new ArrayList<>();
 
     private static final Scanner scanner = new Scanner(System.in);
-
-    private static final String PATH_2 = "src\\Case_study_new\\data\\contract.csv";
-
+    private static final String PATH_2 = "C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\contract.csv";
     @Override
     public void creatNewContract(ReadAndWriteContract readAndWrite) {
-        Set<Booking> bookingSet = (Set<Booking>) new ReadAndWriteBookingImp().readFile("src\\Case_study_new\\data\\booking.csv");
+        if (isFileNotExist("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\booking.csv")) {
+            System.out.println("Ko có booking");
+            return;
+        }
+        Set<Booking> bookingSet = (Set<Booking>) new ReadAndWriteBookingImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\booking.csv");
         Queue<Booking> bookingQueue = new PriorityQueue<>(15, new BookingComparator());
         bookingQueue.addAll(bookingSet);
         Booking element;
@@ -29,8 +33,8 @@ public class ContactServiceImpl implements ContactService {
 //                    bookingSet.remove(element);
                     System.out.println("Tạo hợp đồng cho idCustomer: " + element.getCustomer().getIdCode());
                     System.out.println("Mã bookinig là:" + element.getIdBooking());
-                    System.out.println("Nhập id cho contract này");
-                    String idContract = scanner.nextLine();
+                    String idContract = "CT-000" + (arrayList.size()+1);
+                    System.out.println("Id cho contract này" + idContract);
                     Customer idCus = element.getCustomer();
                     boolean rightType = true;
                     int prePayment = 0;
@@ -54,8 +58,16 @@ public class ContactServiceImpl implements ContactService {
         readAndWrite.writeFile(PATH_2, arrayList);
     }
 
+    private boolean isFileNotExist(String path){
+        return !new File(path).exists();
+    }
+
     @Override
     public void displayListContract(ReadAndWriteContract readAndWrite) {
+        if (isFileNotExist(PATH_2)){
+            System.out.println("Dont have any Contract to display");
+            return;
+        }
         arrayList = (ArrayList<Contract>) readAndWrite.readFile(PATH_2);
         for (Contract element : arrayList) {
             System.out.println(element.toString());
@@ -64,6 +76,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void editContract(ReadAndWriteContract readAndWrite) {
+        if (isFileNotExist(PATH_2)){
+            System.out.println("Dont have any Contract to edit");
+            return;
+        }
         arrayList = (ArrayList<Contract>) readAndWrite.readFile(PATH_2);
         for (Contract element : arrayList) {
             System.out.println(element.toString());

@@ -1,6 +1,7 @@
 package Case_study_new.services.class_service;
 
 import Case_study_new.libs.CatchAgeException;
+import Case_study_new.libs.CatchRegexString;
 import Case_study_new.models.Customer;
 import Case_study_new.models.Employee;
 import Case_study_new.services.EmployeeService;
@@ -19,35 +20,38 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void display() {
-        for (Employee element : new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv")) {
+        for (Employee element : new ReadAndWriteEmployeeImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\employees.csv")) {
             System.out.println(element.toString());
         }
     }
+    //C0421G1_TranXuanTuanKiet_Module2\Module_2\src\Case_study_new\data
 
     @Override
-    public void add(CatchAgeException catchAgeException) {
+    public void add(CatchAgeException catchAgeException, CatchRegexString catchRegexString) {
         if (new File("src\\Case_study_new\\data\\employees.csv").exists()){
-            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\employees.csv");
         }
-        System.out.println("0. Mã số của nhân viên");
-        String idEmploy = scanner.nextLine();
+
+//        String idEmploy = scanner.nextLine();
+        String idEmploy = "EM_000" + (employees.size() +1);
+        System.out.println("0. Mã số của nhân viên" + idEmploy);
         System.out.println("1. Name employee");
-        String name = scanner.nextLine();
+        String name = catchRegexString.regexString();
         System.out.println("2. Ngày sinh");
         String day = scanner.nextLine();
         catchAgeException.checkDateOfBirth(day);
         System.out.println("3. Giới tính");
-        String sex = scanner.nextLine();
+        String sex = catchRegexString.regexString();
         System.out.println("4. Số Chứng minh nhân dân");
-        String idPerson = scanner.nextLine();
+        String idPerson = catchRegexString.regexString();
         System.out.println("5. Số điện thoại");
-        String number = scanner.nextLine();
+        String number = catchRegexString.regexString();
         System.out.println("6. Địa chỉ email");
-        String email = scanner.nextLine();
-        System.out.println("7. Trình độ");
-        String level = scanner.nextLine();
-        System.out.println("8. Vị trí");
-        String position = scanner.nextLine();
+        String email = catchRegexString.regexString();
+        System.out.println("7. Trình độ: Trung cấp, Cao đẳng, Đại học và sau đại học");
+        String level = catchRegexString.regexString();
+        System.out.println("8. Vị trí: Lễ tân, phục vụ, chuyên viên, giám sát, quản lý, giám đốc");
+        String position = catchRegexString.regexString();
         System.out.println("9. Salary");
         boolean checkSalary = true;
         int salary = 0;
@@ -61,16 +65,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         Employee element = new Employee(idEmploy,name,day,sex,idPerson,number,email,level,position,salary);
         employees.add(element);
-        new ReadAndWriteEmployeeImp().writeFile("src\\Case_study_new\\data\\employees.csv",employees);
+        new ReadAndWriteEmployeeImp().writeFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\employees.csv",employees);
     }
 
     @Override
-    public void edit(CatchAgeException catchAgeException) {
+    public void edit(CatchAgeException catchAgeException, CatchRegexString catchRegexString) {
         if (new File("src\\Case_study_new\\data\\employees.csv").exists()){
-            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("src\\Case_study_new\\data\\employees.csv");
+            employees = (List<Employee>) new ReadAndWriteEmployeeImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\employees.csv");
         }
         System.out.println("Nhập id employee muốn tìm kiếm");
-        String idCode = scanner.nextLine();
+        String idCode = catchRegexString.regexString();
         boolean checkEmploye = false;
         for (Employee employee : employees) {
             if (employee.getIdCode().equals(idCode)) {
@@ -98,7 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 switch (choice) {
                     case 1:
                         System.out.println("Nhập tên muốn sửa");
-                        String name = scanner.nextLine();
+                        String name = catchRegexString.regexString();
                         employee.setNamePerson(name);
                         break;
                     case 2:
@@ -109,32 +113,32 @@ public class EmployeeServiceImpl implements EmployeeService {
                         break;
                     case 3:
                         System.out.println("Nhập giới tính");
-                        String sex = scanner.nextLine();
+                        String sex = catchRegexString.regexString();
                         employee.setDateOfBirth(sex);
                         break;
                     case 4:
                         System.out.println("Nhập CMND");
-                        String idPerson = scanner.nextLine();
+                        String idPerson = catchRegexString.regexString();
                         employee.setIdPerson(idPerson);
                         break;
                     case 5:
                         System.out.println("Nhập số điện thoại");
-                        String number = scanner.nextLine();
+                        String number = catchRegexString.regexString();
                         employee.setPhoneNumber(number);
                         break;
                     case 6:
                         System.out.println("Nhập emailAddress");
-                        String email = scanner.nextLine();
+                        String email = catchRegexString.regexString();
                         employee.setEmailAddress(email);
                         break;
                     case 7:
-                        System.out.println("Nhập trình độ");
-                        String level = scanner.nextLine();
+                        System.out.println("Nhập trình độ:  Trung cấp, Cao đẳng, Đại học và sau đại học");
+                        String level = catchRegexString.regexString();
                         employee.setLevel(level);
                         break;
                     case 8:
-                        System.out.println("Nhập position");
-                        String position = scanner.nextLine();
+                        System.out.println("Nhập position: Lễ tân, phục vụ, chuyên viên, giám sát, quản lý, giám đốc");
+                        String position = catchRegexString.regexString();
                         employee.setPosition(position);
                         break;
                     case 9:
@@ -157,7 +161,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         if (checkEmploye){
             System.out.println("Hoàn thành việc cập nhật");
-            new ReadAndWriteEmployeeImp().writeFile("src\\Case_study_new\\data\\employees.csv",employees);
+            new ReadAndWriteEmployeeImp().writeFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\employees.csv",employees);
         }else {
             System.out.println("Không có id này trong list Employees");
         }

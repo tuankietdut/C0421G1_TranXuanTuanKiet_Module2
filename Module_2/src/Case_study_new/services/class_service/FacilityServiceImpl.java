@@ -21,12 +21,18 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     }
 
     private static void runMap() {
-        mapVilla = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\villa.csv");
-        mapHouse = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\house.csv");
-        mapRoom = new ReadAndWriteFacilityImp().readFile("src\\Case_study_new\\data\\room.csv");
-        myMap.putAll(mapVilla);
-        myMap.putAll(mapHouse);
-        myMap.putAll(mapRoom);
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\villa.csv")){
+            mapVilla = new ReadAndWriteFacilityImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\villa.csv");
+        }
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\house.csv")){
+            mapHouse = new ReadAndWriteFacilityImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\house.csv");
+        }
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\room.csv")){
+            mapRoom = new ReadAndWriteFacilityImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\room.csv");
+        }
+        if (!mapVilla.isEmpty()) myMap.putAll(mapVilla);
+        if (!mapHouse.isEmpty()) myMap.putAll(mapHouse);
+        if (!mapRoom.isEmpty()) myMap.putAll(mapRoom);
     }
 
     @Override
@@ -57,7 +63,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         }
     }
 
-    private static boolean checkFile(String path) {
+    private static boolean isFileExists(String path) {
         File file = new File(path);
         return file.exists();
     }
@@ -67,7 +73,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         boolean check;
         String nameFacility;
         do {
-            System.out.println("Nhập Id cho Villa");
+            System.out.println("Id villa have form like SVVL-000X");
             nameFacility = scanner.nextLine();
             check = Pattern.matches(regular, nameFacility);
         } while (!check);
@@ -79,7 +85,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         String regular = "(SVHO)[-][\\d]{4}";
         boolean check;
         do {
-            System.out.println("Nhập Id cho House");
+            System.out.println("Id house have form like SVHO-000X");
             nameFacility = scanner.nextLine();
             check = Pattern.matches(regular, nameFacility);
         } while (!check);
@@ -91,7 +97,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         String regular = "(SVRO)[-][\\d]{4}";
         boolean check;
         do {
-            System.out.println("Nhập Id cho Room");
+            System.out.println("Id room have form like SVRO-000X");
             nameFacility = scanner.nextLine();
             check = Pattern.matches(regular, nameFacility);
         } while (!check);
@@ -100,21 +106,21 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
 
     private static String styleAndStandardService() {
         String style;
-        String regular = "[A-Z][a-zA-z]*";
+        String regular = "^[A-Z]+[\\w\\s]*$";
         boolean check;
         do {
             style = scanner.nextLine();
             check = Pattern.matches(regular, style);
             if (!check) {
-                System.out.println("Mời nhập lại");
+                System.out.println("First letter must be uppercase");
             }
         } while (!check);
         return style;
     }
 
     public void addVilla(ReadAndWriteFacility readAndWriteFacility) {
-        if (checkFile("src\\Case_study_new\\data\\villa.csv")) {
-            mapVilla = readAndWriteFacility.readFile("src\\Case_study_new\\data\\villa.csv");
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\villa.csv")) {
+            mapVilla = readAndWriteFacility.readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\villa.csv");
         }
         boolean checkVilla = true;
         while (checkVilla) {
@@ -126,15 +132,15 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                 double areaPool;
                 int floor;
                 do {
-                    System.out.println("1. Nhập diện tích của Villa");
+                    System.out.println("1. Nhập diện tích của Villa (> 30)");
                     areaUse = Double.parseDouble(scanner.nextLine());
-                    System.out.println("2. Giá cho thuê");
+                    System.out.println("2. Giá cho thuê (>0)");
                     price = Integer.parseInt(scanner.nextLine());
-                    System.out.println("3. Số lượng người thuê tối đa cho 1 Villa");
+                    System.out.println("3. Số lượng người thuê tối đa cho 1 Villa (>0 && <20)");
                     rentalPeople = Integer.parseInt(scanner.nextLine());
-                    System.out.println("4. Diện tích hồ bơi");
+                    System.out.println("4. Diện tích hồ bơi (>30)");
                     areaPool = Double.parseDouble(scanner.nextLine());
-                    System.out.println("5. Số tầng");
+                    System.out.println("5. Số tầng (>0)");
                     floor = Integer.parseInt(scanner.nextLine());
                     if (areaUse < 30) {
                         System.out.println("1. Nhập lại diện tích của Villa");
@@ -152,15 +158,15 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                         System.out.println("5. Nhập lại số tầng");
                         floor = Integer.parseInt(scanner.nextLine());
                     }
-                } while (areaUse > 30 && price > 0 && (rentalPeople > 0 && rentalPeople < 20) && areaPool > 30 && floor > 0);
-                System.out.println("6. Thuê theo ngày/giờ/tháng");
+                } while (areaUse < 30 || price < 0 || (rentalPeople < 0 || rentalPeople > 20) || areaPool < 30 || floor < 0);
+                System.out.println("6. Thuê theo Day/Month/Year");
                 String styleRental = styleAndStandardService();
-                System.out.println("7. Tiêu chuẩn của phòng");
+                System.out.println("7. Tiêu chuẩn của phòng High Level, Medium Level or Low Level");
                 String standardVilla = styleAndStandardService();
                 Villa villa = new Villa(idVilla, areaUse, price, rentalPeople, styleRental, standardVilla, areaPool, floor);
                 mapVilla.put(villa, 0);
                 myMap.put(villa, 0);
-                readAndWriteFacility.writeFile("src\\Case_study_new\\data\\villa.csv", mapVilla);
+                readAndWriteFacility.writeFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\villa.csv", mapVilla);
                 checkVilla = false;
             } catch (RuntimeException ex) {
                 System.out.println("Nhập đúng dữ liệu cho Villa");
@@ -171,8 +177,8 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     // House double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String standardHose, int floor
 
     public void addHouse(ReadAndWriteFacility readAndWriteFacility) {
-        if (checkFile("src\\Case_study_new\\data\\house.csv")) {
-            mapHouse = readAndWriteFacility.readFile("src\\Case_study_new\\data\\house.csv");
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\house.csv")) {
+            mapHouse = readAndWriteFacility.readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\house.csv");
         }
         boolean checkHouse = true;
         while (checkHouse) {
@@ -183,13 +189,13 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                 int rentalPeople;
                 int floor;
                 do {
-                    System.out.println("1. Nhập diện tích của House");
+                    System.out.println("1. Nhập diện tích của House (>30)");
                     areaUse = Double.parseDouble(scanner.nextLine());
-                    System.out.println("2. Giá cho thuê");
+                    System.out.println("2. Giá cho thuê (>0) ");
                     price = Integer.parseInt(scanner.nextLine());
-                    System.out.println("3. Số lượng người thuê tối đa cho 1 House");
+                    System.out.println("3. Số lượng người thuê tối đa cho 1 House (>0 && <20)");
                     rentalPeople = Integer.parseInt(scanner.nextLine());
-                    System.out.println("4. Số tầng");
+                    System.out.println("4. Số tầng (>0) ");
                     floor = Integer.parseInt(scanner.nextLine());
                     if (areaUse < 30) {
                         System.out.println("1. Nhập lại diện tích của House");
@@ -204,15 +210,15 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                         System.out.println("4. Nhập lại số tầng");
                         floor = Integer.parseInt(scanner.nextLine());
                     }
-                } while (areaUse > 30 && price > 0 && (rentalPeople > 0 && rentalPeople < 20) && floor > 0);
-                System.out.println("5. Thuê theo ngày/giờ/tháng");
+                } while (areaUse < 30 || price < 0 || (rentalPeople < 0 || rentalPeople > 20) || floor < 0);
+                System.out.println("5. Thuê theo Day/Month/Year");
                 String styleRental = styleAndStandardService();
-                System.out.println("6. Tiêu chuẩn của phòng");
+                System.out.println("6. Tiêu chuẩn của phòng: High Level, Medium Level, Low Level");
                 String standardVilla = styleAndStandardService();
                 House house = new House(idHouse, areaUse, price, rentalPeople, styleRental, standardVilla, floor);
                 mapHouse.put(house, 0);
                 myMap.put(house, 0);
-                readAndWriteFacility.writeFile("src\\Case_study_new\\data\\house.csv", mapHouse);
+                readAndWriteFacility.writeFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\house.csv", mapHouse);
                 checkHouse = false;
             } catch (RuntimeException ex) {
                 System.out.println("Nhập đúng dữ liệu cho House");
@@ -223,8 +229,8 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     //Room double areaUse, int rentalPrice, int rentalPeopleMax, String styleRental, String freeService
 
     public void addRoom(ReadAndWriteFacility readAndWriteFacility) {
-        if (checkFile("src\\Case_study_new\\data\\room.csv")) {
-            mapRoom = readAndWriteFacility.readFile("src\\Case_study_new\\data\\room.csv");
+        if (isFileExists("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\room.csv")) {
+            mapRoom = readAndWriteFacility.readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\room.csv");
         }
         boolean checkRoom = true;
         while (checkRoom) {
@@ -234,11 +240,11 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                 int price;
                 int rentalPeople;
                 do {
-                    System.out.println("1. Nhập diện tích của Room");
+                    System.out.println("1. Nhập diện tích của Room (>30)");
                     areaUse = Double.parseDouble(scanner.nextLine());
-                    System.out.println("2. Giá cho thuê");
+                    System.out.println("2. Giá cho thuê (>0)");
                     price = Integer.parseInt(scanner.nextLine());
-                    System.out.println("3. Số lượng người thuê tối đa cho 1 Room");
+                    System.out.println("3. Số lượng người thuê tối đa cho 1 Room (>0 && <20)");
                     rentalPeople = Integer.parseInt(scanner.nextLine());
                     if (areaUse < 30) {
                         System.out.println("1. Nhập lại diện tích của Villa");
@@ -247,18 +253,18 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
                         System.out.println("2. Nhập lại giá cho thuê");
                         price = Integer.parseInt(scanner.nextLine());
                     } else if (rentalPeople < 0 || rentalPeople > 20) {
-                        System.out.println("3. Nhập lại số lượng người thuê tối đa cho 1 Villa");
+                        System.out.println("3. Nhập lại số lượng người thuê tối đa cho 1 Villa ");
                         rentalPeople = Integer.parseInt(scanner.nextLine());
                     }
-                } while (areaUse > 30 && price > 0 && (rentalPeople > 0 && rentalPeople < 20));
-                System.out.println("4. Thuê theo ngày/giờ/tháng");
+                } while (areaUse < 30 || price < 0 || (rentalPeople < 0 || rentalPeople > 20));
+                System.out.println("4. Thuê theo Day/Month/Year");
                 String styleRental = styleAndStandardService();
-                System.out.println("5. Các dịch vụ miễn phí");
+                System.out.println("5. Các dịch vụ miễn phí: Watch Movie, Swimming Poor, Water Park, Eat Buffer");
                 String freeService = styleAndStandardService();
                 Room room = new Room(idRoom, areaUse, price, rentalPeople, styleRental, freeService);
                 mapRoom.put(room, 0);
                 myMap.put(room, 0);
-                readAndWriteFacility.writeFile("src\\Case_study_new\\data\\room.csv", mapRoom);
+                readAndWriteFacility.writeFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\room.csv", mapRoom);
                 checkRoom = false;
             } catch (RuntimeException ex) {
                 System.out.println("Nhập đúng dữ liệu cho Room");

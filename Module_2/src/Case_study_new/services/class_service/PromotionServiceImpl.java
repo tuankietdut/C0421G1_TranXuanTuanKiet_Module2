@@ -11,7 +11,7 @@ public class PromotionServiceImpl implements PromotionService {
     private static final Scanner scanner = new Scanner(System.in);
 
     private static TreeSet<Booking> getListBooking() {
-        return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile("Case_study_new\\data\\booking.csv");
+        return (TreeSet<Booking>) new ReadAndWriteBookingImp().readFile("C0421G1_TranXuanTuanKiet_Module2\\Module_2\\src\\Case_study_new\\data\\booking.csv");
     }
 
     @Override
